@@ -30,7 +30,6 @@ int readTillSeparator(char *buffer, string& rez){
         }
         rez=rez+buffer[0];
     }
-    
 }
 int clientProcess(){   
     while(working){
