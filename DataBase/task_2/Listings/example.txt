@@ -1,0 +1,15 @@
+C:\study\s08\BD\task_2\work\lab_1>python manage.py generate all 10
+10 row(s) successfully added in table my_user.
+10 row(s) successfully added in table manufacturer.
+10 row(s) successfully added in table sells.
+10 row(s) successfully added in table property.
+10 row(s) successfully added in table type.
+10 row(s) successfully added in table type_prop.
+10 row(s) successfully added in table product.
+10 row(s) successfully added in table product_types.
+10 row(s) successfully added in table review.
+10 row(s) successfully added in table storage.
+10 row(s) successfully added in table product_avaliability.
+10 row(s) successfully added in table properties.
+10 row(s) successfully added in table supply.
+10 row(s) successfully added in table sells_entre.

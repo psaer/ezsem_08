@@ -1,0 +1,16 @@
+RAM
+ROM
+Processor
+CPU speed
+RAM speed
+Voltage
+Interfaces
+Instructions
+Socket
+Power type
+Generation
+Chipset
+OverClock
+Extra power
+Threads
+Included graphics

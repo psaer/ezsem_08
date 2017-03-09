@@ -1,0 +1,100 @@
+HP
+Samsung
+Foxconn
+Nokia
+Dell
+Toshiba
+Intel
+LG Electronics
+Cisco
+Canon
+Fujitsu
+Quanta Computer
+Motorola
+Hitachi
+Sony
+Ricoh
+NEC
+Asus
+IBM
+Apple
+Alcatel-Lucent
+Acer
+Sony Ericsson
+Flextronics
+Sharp Corporation
+Lenovo
+Nintendo
+Seagate Technology
+Epson
+Wistron
+Compal Electronics
+AU Optronics
+Ericsson
+TSMC
+Inventec
+Nokia Siemens Networks
+RIM
+Sun Microsystems
+Nortel
+Qualcomm
+Western Digital
+Xerox
+TPV Technology
+NTT DoCoMo
+EMC
+Huawei
+Microsoft
+ZTE
+AMD
+Jabil Circuit
+Micron Technology
+Hynix
+Oki Electric Industry
+Kyocera
+HTC
+Brother
+Panasonic
+Lockheed Martin
+Mitshubishi Electric
+Elpida Memory
+Rockwell Automation
+Lexmark
+Kingston Technology
+3M
+Freescale
+NVIDIA
+Northrop Grumman
+Kodak
+Greatwall Information
+Texas Instruments
+Micro-Star
+Casio
+Avaya
+UMC
+Marvell
+Juniper
+SanDisk
+LSI Corporation
+SAIC
+Dainippon Screen Manufacturing
+Schneider Electric
+Elitegroup
+Qimonda
+Logitech
+Celestica
+Broadcom
+Raytheon
+NetApp
+Agfa-Gevaert
+Sapphire
+Applied Materials
+MiTAC
+Imation
+Infineon
+Thales Computer
+Lite-On
+Inspur
+UTStarcom
+USI
+Gygabyte Technology
