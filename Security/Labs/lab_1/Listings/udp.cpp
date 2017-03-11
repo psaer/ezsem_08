@@ -14,12 +14,15 @@ int main(int argc, char** argv) {
     WSADATA wsa;
     
     if(WSAStartup(MAKEWORD(2,2),&wsa)!=0){
-        printf("Failed WSAS initialize. Error code :%d",WSAGetLastError());
+        printf("Failed WSAS initialize. Error code :%d",
+        	WSAGetLastError());
         exit(EXIT_FAILURE);
     }
     
-    if((clientSocket=socket(AF_INET,SOCK_DGRAM,IPPROTO_UDP))==SOCKET_ERROR){
-        printf("Socket() failed with error code: %d",WSAGetLastError());
+    if((clientSocket=socket(AF_INET,SOCK_DGRAM,IPPROTO_UDP))==
+    	SOCKET_ERROR){
+        printf("Socket() failed with error code: %d",
+        	WSAGetLastError());
         exit(EXIT_FAILURE);
     }
     
@@ -29,7 +32,8 @@ int main(int argc, char** argv) {
     si_server.sin_addr.S_un.S_addr=inet_addr(SERVER);
     
     string rez="testData";
-    sendto(clientSocket,rez.c_str(),strlen(rez.c_str()), 0,(struct sockaddr *)&si_server,slen);   
+    sendto(clientSocket,rez.c_str(),strlen(rez.c_str()), 0,
+    	(struct sockaddr *)&si_server,slen);   
 
     return 0;
 }
