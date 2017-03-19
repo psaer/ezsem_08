@@ -1,7 +1,7 @@
 #include <winsock2.h>
 #include <fstream>
 
-#define SERVER "192.168.56.2"
+#define SERVER "192.168.0.102"
 #define PORT 8005
 
 using namespace std;
