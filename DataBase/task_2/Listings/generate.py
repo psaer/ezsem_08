@@ -3,6 +3,8 @@ from django.db.models import Max, Min
 from ulmart.models import *
 import random
 import datetime
+import string
+import argparse
 
 NAMES='Data/names.txt'
 SURNAMES='Data/surnames.txt'
@@ -22,8 +24,9 @@ MAXIMUM_LEVEL=3
 
 class Command(BaseCommand):
 	def add_arguments(self, parser):
-		parser.add_argument('table')
-		parser.add_argument('count')
+		parser.add_argument('table', type=str)
+		parser.add_argument('count', type=int)
+		parser.add_argument("-f","--fromFile", action="store_true")
 
 	def getLinesCount(self, filename):
 		with open(filename, 'r') as f:
@@ -42,7 +45,10 @@ class Command(BaseCommand):
 			i+=1
 		return("null")
 
-	def addUsers(self, count):
+	def getRandomString(self):
+		return(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10)))
+
+	def addUsers(self, count, fromFile):
 		#Check if this table is empty
 		if My_user.objects.count()==0:
 			max_id=0
@@ -53,9 +59,14 @@ class Command(BaseCommand):
 		i=1
 		while i<=count:
 			new_id=max_id+i
-			new_name=self.getRandomLine(NAMES)
-			new_surname=self.getRandomLine(SURNAMES)
-			new_oldname=self.getRandomLine(OLDNAMES)
+			if fromFile:
+				new_name=self.getRandomLine(NAMES)
+				new_surname=self.getRandomLine(SURNAMES)
+				new_oldname=self.getRandomLine(OLDNAMES)
+			else:
+				new_name=self.getRandomString()
+				new_surname=self.getRandomString()
+				new_oldname=self.getRandomString()
 			new_date=datetime.date(random.randint(2006,2016), random.randint(1,12),random.randint(1,28))
 
 			#Creating new object and saving it
@@ -95,7 +106,7 @@ class Command(BaseCommand):
 			i+=1
 		print(str(count)+" row(s) successfully added in table sells.")
 
-	def addManufacturers(self, count):
+	def addManufacturers(self, count, fromFile):
 		#Check if this table is empty
 		if Manufacturer.objects.count()==0:
 			max_id=0
@@ -106,8 +117,12 @@ class Command(BaseCommand):
 		i=1
 		while i<=count:
 			new_id=max_id+i
-			new_name=self.getRandomLine(MANUFACTURERS)
-			new_country=self.getRandomLine(COUNTRY)
+			if fromFile:
+				new_name=self.getRandomLine(MANUFACTURERS)
+				new_country=self.getRandomLine(COUNTRY)
+			else:
+				new_name=self.getRandomString()
+				new_country=self.getRandomString()
 
 			#Creating new object and saving it
 			new_manufacturer = Manufacturer(manufacturer_id=new_id, name=new_name, country=new_country)
@@ -116,7 +131,7 @@ class Command(BaseCommand):
 			i+=1
 		print(str(count)+" row(s) successfully added in table manufacturer.")
 
-	def addProperty(self, count):
+	def addProperty(self, count, fromFile):
 		#Check if this table is empty
 		if Property.objects.count()==0:
 			max_id=0
@@ -127,7 +142,10 @@ class Command(BaseCommand):
 		i=1
 		while i<=count:
 			new_id=max_id+i
-			new_name=self.getRandomLine(PROPERTY)
+			if fromFile:
+				new_name=self.getRandomLine(PROPERTY)
+			else:
+				new_name=self.getRandomString()
 
 			#Creating new object and saving it
 			new_property = Property(property_id=new_id, name=new_name)
@@ -243,7 +261,7 @@ class Command(BaseCommand):
 			i+=1
 		print(str(count)+" row(s) successfully added in table supply.")
 
-	def addProperties(self, count):
+	def addProperties(self, count, fromFile):
 		#Check if there is no data in property or product
 		if Property.objects.count()==0 or Product.objects.count()==0:
 			print('No data in property or product table!')
@@ -268,7 +286,10 @@ class Command(BaseCommand):
 			new_id=max_id+i
 			new_product_id=random.randint(min_product_id, max_product_id)
 			new_property_id=random.randint(min_property_id, max_property_id)
-			new_prop_value=self.getRandomLine(PROPERTIES)
+			if fromFile:
+				new_prop_value=self.getRandomLine(PROPERTIES)
+			else:
+				new_prop_value=self.getRandomString()
 
 			#Creating new object and saving it
 			new_properties = Properties(id=new_id, product_id=new_product_id, property_id=new_property_id, prop_value=new_prop_value)
@@ -344,7 +365,7 @@ class Command(BaseCommand):
 			i+=1
 		print(str(count)+" row(s) successfully added in table product_types.")
 
-	def addProduct(self, count):
+	def addProduct(self, count, fromFile):
 		#Check if there is no data in manufacturer
 		if Manufacturer.objects.count()==0:
 			print('No data in manufacturer table!')
@@ -365,8 +386,12 @@ class Command(BaseCommand):
 		while i<=count:
 			new_id=max_id+i
 			new_manufacturer_id=random.randint(min_manufacturer_id, max_manufacturer_id)
-			new_name=self.getRandomLine(PRODUCT_NAME)
-			new_description=self.getRandomLine(PRODUCT_DESCRIPTION)
+			if fromFile:
+				new_name=self.getRandomLine(PRODUCT_NAME)
+				new_description=self.getRandomLine(PRODUCT_DESCRIPTION)
+			else:
+				new_name=self.getRandomString()
+				new_description=self.getRandomString()
 			new_price=random.uniform(1000, 40000)
 
 			#Creating new object and saving it
@@ -376,7 +401,7 @@ class Command(BaseCommand):
 			i+=1
 		print(str(count)+" row(s) successfully added in table product.")
 
-	def addStorage(self, count):
+	def addStorage(self, count, fromFile):
 		#Check if this table is empty
 		if Storage.objects.count()==0:
 			max_id=0
@@ -387,8 +412,12 @@ class Command(BaseCommand):
 		i=1
 		while i<=count:
 			new_id=max_id+i
-			new_address=self.getRandomLine(ADDRESS)
-			new_phone=self.getRandomLine(PHONE)
+			if fromFile:
+				new_address=self.getRandomLine(ADDRESS)
+				new_phone=self.getRandomLine(PHONE)
+			else:
+				new_address=self.getRandomString()
+				new_phone=self.getRandomString()
 
 			#Creating new object and saving it
 			new_storage = Storage(storage_id=new_id, address=new_address, phone=new_phone)
@@ -397,7 +426,7 @@ class Command(BaseCommand):
 			i+=1
 		print(str(count)+" row(s) successfully added in table storage.")
 
-	def addReview(self, count):
+	def addReview(self, count, fromFile):
 		#Check if there is no data in product or my_user
 		if Product.objects.count()==0 or My_user.objects.count()==0:
 			print('No data in product or my_user table!')
@@ -423,7 +452,10 @@ class Command(BaseCommand):
 			new_product_id=random.randint(min_product_id, max_product_id)
 			new_user_id=random.randint(min_my_user_id, max_my_user_id)
 			new_rating=random.randint(1,5)
-			new_description=self.getRandomLine(REVIEW_DESCRIPTION)
+			if fromFile:
+				new_description=self.getRandomLine(REVIEW_DESCRIPTION)
+			else:
+				new_description=self.getRandomString()
 
 			#Creating new object and saving it
 			new_review = Review(id=new_id, product_id=new_product_id, user_id=new_user_id, rating=new_rating, description=new_description)
@@ -432,7 +464,7 @@ class Command(BaseCommand):
 			i+=1
 		print(str(count)+" row(s) successfully added in table review.")
 
-	def addType(self, count):
+	def addType(self, count, fromFile):
 		#Check if this table is empty
 		if Type.objects.count()==0:
 			max_id=0
@@ -443,7 +475,10 @@ class Command(BaseCommand):
 		i=1
 		while i<=count:
 			new_id=max_id+i
-			new_name=self.getRandomLine(TYPE)
+			if fromFile:
+				new_name=self.getRandomLine(TYPE)
+			else:
+				new_name=self.getRandomString()
 
 			#50 at 50 if new type will have parent, also checking if parent is possible
 			if random.randint(0,1)==0 or new_id==1:
@@ -476,45 +511,62 @@ class Command(BaseCommand):
 			print('Wrong count!')
 			return
 		if table=='my_user':
-			self.addUsers(count)
+			self.addUsers(count, options['fromFile'])
 		elif table=='sells':
 			self.addSells(count)
 		elif table=='manufacturer':
-			self.addManufacturers(count)
+			self.addManufacturers(count, options['fromFile'])
 		elif table=='property':
-			self.addProperty(count)
+			self.addProperty(count, options['fromFile'])
 		elif table=='type':
-			self.addType(count)
+			self.addType(count, options['fromFile'])
 		elif table=='type_prop':
 			self.addType_prop(count)
 		elif table=='supply':
 			self.addSupply(count)
 		elif table=='product':
-			self.addProduct(count)
+			self.addProduct(count, options['fromFile'])
 		elif table=='product_types':
 			self.addProduct_types(count)
 		elif table=='review':
-			self.addReview(count)
+			self.addReview(count, options['fromFile'])
 		elif table=='properties':
-			self.addProperties(count)
+			self.addProperties(count, options['fromFile'])
 		elif table=='sells_entre':
 			self.addSells_entre(count)
 		elif table=='storage':
-			self.addStorage(count)
+			self.addStorage(count, options['fromFile'])
 		elif table=='product_avaliability':
 			self.addProduct_avaliability(count)
+		elif table=='product_part':
+			self.addManufacturers(count*2, options['fromFile'])
+			self.addProduct(count, options['fromFile'])
+			self.addProperty(count*20, options['fromFile'])
+			self.addProperties(count*10, options['fromFile'])
+			self.addType(count*4, options['fromFile'])
+			self.addType_prop(count*10)
+			self.addProduct_types(count*2)
+		elif table=='storage_part':
+			self.addStorage(count, options['fromFile'])
+			self.addProduct_avaliability(count*10)
+			self.addSupply(count*10)
+		elif table=='user_sells_part':
+			self.addUsers(count, options['fromFile'])
+			self.addSells(count*5)
+			self.addReview(count*10, options['fromFile'])
+			self.addSells_entre(count*10)
 		elif table=='all':
-			self.addUsers(count)
-			self.addManufacturers(count)
+			self.addUsers(count, options['fromFile'])
+			self.addManufacturers(count, options['fromFile'])
 			self.addSells(count)
-			self.addProperty(count)
-			self.addType(count)
+			self.addProperty(count, options['fromFile'])
+			self.addType(count, options['fromFile'])
 			self.addType_prop(count)
-			self.addProduct(count)
+			self.addProduct(count, options['fromFile'])
 			self.addProduct_types(count)
-			self.addReview(count)
-			self.addStorage(count)
+			self.addReview(count, options['fromFile'])
+			self.addStorage(count, options['fromFile'])
 			self.addProduct_avaliability(count)
-			self.addProperties(count)
+			self.addProperties(count, options['fromFile'])
 			self.addSupply(count)
 			self.addSells_entre(count)
