@@ -49,6 +49,9 @@ class Command(BaseCommand):
 		return(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10)))
 
 	def addUsers(self, count, fromFile):
+		#Counter
+		added=0
+
 		#Check if this table is empty
 		if My_user.objects.count()==0:
 			max_id=0
@@ -70,13 +73,19 @@ class Command(BaseCommand):
 			new_date=datetime.date(random.randint(2006,2016), random.randint(1,12),random.randint(1,28))
 
 			#Creating new object and saving it
-			new_user = My_user(user_id=new_id, name=new_name, surname=new_surname, oldname=new_oldname, reg_date=new_date)
-			new_user.save()
-
+			try:
+				new_user = My_user(user_id=new_id, name=new_name, surname=new_surname, oldname=new_oldname, reg_date=new_date)
+				new_user.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 			i+=1
-		print(str(count)+" row(s) successfully added in table my_user.")
+		print(str(added)+" row(s) added in table my_user.")
 
 	def addSells(self, count):
+		#Counter
+		added=0
+
 		#Check if there is no users
 		if My_user.objects.count()==0:
 			print('No users!')
@@ -100,13 +109,19 @@ class Command(BaseCommand):
 			new_date=datetime.date(random.randint(2006,2016), random.randint(1,12),random.randint(1,28))
 
 			#Creating new object and saving it
-			new_sell = Sells(sell_id=new_id, user_id=new_user_id, sell_date=new_date)
-			new_sell.save()
-
+			try:
+				new_sell = Sells(sell_id=new_id, user_id=new_user_id, sell_date=new_date)
+				new_sell.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 			i+=1
-		print(str(count)+" row(s) successfully added in table sells.")
+		print(str(added)+" row(s) added in table sells.")
 
 	def addManufacturers(self, count, fromFile):
+		#Counter
+		added=0
+
 		#Check if this table is empty
 		if Manufacturer.objects.count()==0:
 			max_id=0
@@ -125,13 +140,19 @@ class Command(BaseCommand):
 				new_country=self.getRandomString()
 
 			#Creating new object and saving it
-			new_manufacturer = Manufacturer(manufacturer_id=new_id, name=new_name, country=new_country)
-			new_manufacturer.save()
-
+			try:
+				new_manufacturer = Manufacturer(manufacturer_id=new_id, name=new_name, country=new_country)
+				new_manufacturer.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 			i+=1
-		print(str(count)+" row(s) successfully added in table manufacturer.")
+		print(str(added)+" row(s) added in table manufacturer.")
 
 	def addProperty(self, count, fromFile):
+		#Counter
+		added=0
+
 		#Check if this table is empty
 		if Property.objects.count()==0:
 			max_id=0
@@ -148,13 +169,20 @@ class Command(BaseCommand):
 				new_name=self.getRandomString()
 
 			#Creating new object and saving it
-			new_property = Property(property_id=new_id, name=new_name)
-			new_property.save()
+			try:
+				new_property = Property(property_id=new_id, name=new_name)
+				new_property.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 
 			i+=1
-		print(str(count)+" row(s) successfully added in table property.")
+		print(str(added)+" row(s) added in table property.")
 
 	def addType_prop(self, count):
+		#Counter
+		added=0
+
 		#Check if there is no data in property or type
 		if Property.objects.count()==0 or Type.objects.count()==0:
 			print('No data in property or type table!')
@@ -181,13 +209,20 @@ class Command(BaseCommand):
 			new_property_id=random.randint(min_property_id, max_property_id)
 
 			#Creating new object and saving it
-			new_type_prop = Type_prop(id=new_id, property_id=new_property_id, type_id=new_type_id)
-			new_type_prop.save()
+			try:
+				new_type_prop = Type_prop(id=new_id, property_id=new_property_id, type_id=new_type_id)
+				new_type_prop.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 
 			i+=1
-		print(str(count)+" row(s) successfully added in table type_prop.")
+		print(str(added)+" row(s) added in table type_prop.")
 
 	def addSells_entre(self, count):
+		#Counter
+		added=0
+
 		#Check if there is no data in storage or product
 		if Storage.objects.count()==0 or Product.objects.count()==0 or Sells.objects.count()==0:
 			print('No data in storage or product or sells table!')
@@ -220,13 +255,20 @@ class Command(BaseCommand):
 			new_quantity=random.randint(1,100)
 
 			#Creating new object and saving it
-			new_sells_entre = Sells_entre(id=new_id, sell_id=new_sell_id, product_id=new_product_id, storage_id=new_storage_id, product_price=new_product_price, quantity=new_quantity)
-			new_sells_entre.save()
+			try:
+				new_sells_entre = Sells_entre(id=new_id, sell_id=new_sell_id, product_id=new_product_id, storage_id=new_storage_id, product_price=new_product_price, quantity=new_quantity)
+				new_sells_entre.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 
 			i+=1
-		print(str(count)+" row(s) successfully added in table sells_entre.")
+		print(str(added)+" row(s) added in table sells_entre.")
 
 	def addSupply(self, count):
+		#Counter
+		added=0
+
 		#Check if there is no data in storage or product
 		if Storage.objects.count()==0 or Product.objects.count()==0:
 			print('No data in storage or product table!')
@@ -255,13 +297,20 @@ class Command(BaseCommand):
 			new_quantity=random.randint(1,500)
 
 			#Creating new object and saving it
-			new_supply = Supply(id=new_id, product_id=new_product_id, storage_id=new_storage_id, supply_date=new_supply_date, quantity=new_quantity)
-			new_supply.save()
+			try:
+				new_supply = Supply(id=new_id, product_id=new_product_id, storage_id=new_storage_id, supply_date=new_supply_date, quantity=new_quantity)
+				new_supply.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 
 			i+=1
-		print(str(count)+" row(s) successfully added in table supply.")
+		print(str(added)+" row(s) added in table supply.")
 
 	def addProperties(self, count, fromFile):
+		#Counter
+		added=0
+
 		#Check if there is no data in property or product
 		if Property.objects.count()==0 or Product.objects.count()==0:
 			print('No data in property or product table!')
@@ -292,13 +341,20 @@ class Command(BaseCommand):
 				new_prop_value=self.getRandomString()
 
 			#Creating new object and saving it
-			new_properties = Properties(id=new_id, product_id=new_product_id, property_id=new_property_id, prop_value=new_prop_value)
-			new_properties.save()
+			try:
+				new_properties = Properties(id=new_id, product_id=new_product_id, property_id=new_property_id, prop_value=new_prop_value)
+				new_properties.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 
 			i+=1
-		print(str(count)+" row(s) successfully added in table properties.")
+		print(str(added)+" row(s) added in table properties.")
 
 	def addProduct_avaliability(self, count):
+		#Counter
+		added=0
+
 		#Check if there is no data in storage or product
 		if Storage.objects.count()==0 or Product.objects.count()==0:
 			print('No data in storage or product table!')
@@ -326,13 +382,19 @@ class Command(BaseCommand):
 			new_quantity=random.randint(1,500)
 
 			#Creating new object and saving it
-			new_product_avaliability = Product_avaliability(id=new_id, product_id=new_product_id, storage_id=new_storage_id, quantity=new_quantity)
-			new_product_avaliability.save()
-
+			try:
+				new_product_avaliability = Product_avaliability(id=new_id, product_id=new_product_id, storage_id=new_storage_id, quantity=new_quantity)
+				new_product_avaliability.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 			i+=1
-		print(str(count)+" row(s) successfully added in table product_avaliability.")
+		print(str(added)+" row(s) added in table product_avaliability.")
 
 	def addProduct_types(self, count):
+		#Counter
+		added=0
+
 		#Check if there is no data in product or type
 		if Product.objects.count()==0 or Type.objects.count()==0:
 			print('No data in product or type table!')
@@ -359,13 +421,20 @@ class Command(BaseCommand):
 			new_product_id=random.randint(min_product_id, max_product_id)
 
 			#Creating new object and saving it
-			new_product_type = Product_types(id=new_id, product_id=new_product_id, type_id=new_type_id)
-			new_product_type.save()
+			try:
+				new_product_type = Product_types(id=new_id, product_id=new_product_id, type_id=new_type_id)
+				new_product_type.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 
 			i+=1
-		print(str(count)+" row(s) successfully added in table product_types.")
+		print(str(added)+" row(s) added in table product_types.")
 
 	def addProduct(self, count, fromFile):
+		#Counter
+		added=0
+
 		#Check if there is no data in manufacturer
 		if Manufacturer.objects.count()==0:
 			print('No data in manufacturer table!')
@@ -395,13 +464,20 @@ class Command(BaseCommand):
 			new_price=random.uniform(1000, 40000)
 
 			#Creating new object and saving it
-			new_product = Product(product_id=new_id, manufacturer_id=new_manufacturer_id, name=new_name, description=new_description, price=new_price)
-			new_product.save()
+			try:
+				new_product = Product(product_id=new_id, manufacturer_id=new_manufacturer_id, name=new_name, description=new_description, price=new_price)
+				new_product.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 
 			i+=1
-		print(str(count)+" row(s) successfully added in table product.")
+		print(str(added)+" row(s) added in table product.")
 
 	def addStorage(self, count, fromFile):
+		#Counter
+		added=0
+
 		#Check if this table is empty
 		if Storage.objects.count()==0:
 			max_id=0
@@ -420,13 +496,20 @@ class Command(BaseCommand):
 				new_phone=self.getRandomString()
 
 			#Creating new object and saving it
-			new_storage = Storage(storage_id=new_id, address=new_address, phone=new_phone)
-			new_storage.save()
+			try:
+				new_storage = Storage(storage_id=new_id, address=new_address, phone=new_phone)
+				new_storage.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 
 			i+=1
-		print(str(count)+" row(s) successfully added in table storage.")
+		print(str(added)+" row(s) added in table storage.")
 
 	def addReview(self, count, fromFile):
+		#Counter
+		added=0
+
 		#Check if there is no data in product or my_user
 		if Product.objects.count()==0 or My_user.objects.count()==0:
 			print('No data in product or my_user table!')
@@ -458,13 +541,20 @@ class Command(BaseCommand):
 				new_description=self.getRandomString()
 
 			#Creating new object and saving it
-			new_review = Review(id=new_id, product_id=new_product_id, user_id=new_user_id, rating=new_rating, description=new_description)
-			new_review.save()
+			try:
+				new_review = Review(id=new_id, product_id=new_product_id, user_id=new_user_id, rating=new_rating, description=new_description)
+				new_review.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 
 			i+=1
-		print(str(count)+" row(s) successfully added in table review.")
+		print(str(added)+" row(s) added in table review.")
 
 	def addType(self, count, fromFile):
+		#Counter
+		added=0
+
 		#Check if this table is empty
 		if Type.objects.count()==0:
 			max_id=0
@@ -495,11 +585,15 @@ class Command(BaseCommand):
 					continue
 		
 			#Creating new object and saving it	
-			new_type = Type(type_id=new_id, p_id=new_p_id, name=new_name, level=new_level)
-			new_type.save()
+			try:
+				new_type = Type(type_id=new_id, p_id=new_p_id, name=new_name, level=new_level)
+				new_type.save()
+				added=added+1
+			except:
+				print('Error while trying add new row.')
 			
 			i+=1
-		print(str(count)+" row(s) successfully added in table type.")
+		print(str(added)+" row(s) added in table type.")
 
 	def handle(self, *args, **options):
 		#Reading input options
